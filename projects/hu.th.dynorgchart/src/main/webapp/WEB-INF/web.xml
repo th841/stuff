@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="th.server" version="2.5">
+
+	<filter>
+		<filter-name>GzipFilter</filter-name>
+		<filter-class>hu.th.filter.GZipServletFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>GzipFilter</filter-name>
+		<url-pattern>/data/*</url-pattern>
+	</filter-mapping>
+
+	<display-name>files</display-name>
+	<servlet>
+		<description></description>
+		<display-name>FileServlet</display-name>
+		<servlet-name>FileServlet</servlet-name>
+		<servlet-class>de.brueckner.bpv.FileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>AllDataServlet</display-name>
+		<servlet-name>AllDataServlet</servlet-name>
+		<servlet-class>hu.th.servlet.AllDataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AllDataServlet</servlet-name>
+		<url-pattern>/data/getAll</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+
+</web-app>
