@@ -118,7 +118,26 @@ public class DataFileReader {
         return null;
     }
 
+    /**
+     * Returns the root people, who has no manager set
+     * 
+     * @return root people
+     */
     public List<Person> getRoots() {
         return this.roots;
+    }
+
+    /**
+     * Returns the real person object if it exists in the dataBASE, null if not.
+     * 
+     * @param firstName
+     *            first name of the person
+     * @param lastName
+     *            last name of the person
+     * @return the person object from database, null if not existent
+     */
+    public synchronized Person findPerson(String firstName, String lastName) {
+        Person person = new Person(firstName, lastName);
+        return findInList(roots, person);
     }
 }

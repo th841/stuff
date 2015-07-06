@@ -3,6 +3,8 @@ package hu.th.dynorgchart.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 public class Person {
 
     private String title;
@@ -110,8 +112,63 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person [title=" + title + ", firstName=" + firstName + ", lastName=" + lastName + ", department="
-                + department + ", manager=" + manager + ", team=" + team + ", function=" + function + ", office="
-                + office + ", people=" + people + "]";
+        return "Person [firstName=" + firstName + ", lastName=" + lastName + ", hasPeople=" + (people.size() > 0) + "]";
+    }
+
+    /**
+     * Returns json compatible person data as string
+     * 
+     * @return json string
+     */
+    public String toJsonString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("{");
+        sb.append(JSONObject.quote("title"));
+        sb.append(":");
+        sb.append(JSONObject.quote(title));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("firstName"));
+        sb.append(":");
+        sb.append(JSONObject.quote(firstName));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("lastName"));
+        sb.append(":");
+        sb.append(JSONObject.quote(lastName));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("department"));
+        sb.append(":");
+        sb.append(JSONObject.quote(department));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("manager"));
+        sb.append(":");
+        sb.append(JSONObject.quote(manager));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("team"));
+        sb.append(":");
+        sb.append(JSONObject.quote(team));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("function"));
+        sb.append(":");
+        sb.append(JSONObject.quote(function));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("office"));
+        sb.append(":");
+        sb.append(JSONObject.quote(office));
+        sb.append(",");
+
+        sb.append(JSONObject.quote("hasPeople"));
+        sb.append(":");
+        sb.append(Boolean.toString(people.size() > 0));
+
+        sb.append("}");
+
+        return sb.toString();
     }
 }
