@@ -24,14 +24,7 @@ public class PeopleListServlet extends BaseServlet {
             Person person = DataFileReader.getInstance().findPerson(firstName, lastName);
             List<Person> people = person.getPeople();
             writer = resp.getWriter();
-            writer.append("[");
-            for (Person person2 : people) {
-                writer.append(person2.toJsonString());
-                if (people.indexOf(person2) < people.size() - 1) {
-                    writer.append(",");
-                }
-            }
-            writer.append("]");
+            writer.append(Person.toString(people));
         } catch (Throwable e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } finally {

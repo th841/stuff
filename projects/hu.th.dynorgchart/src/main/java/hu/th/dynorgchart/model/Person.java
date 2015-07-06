@@ -171,4 +171,17 @@ public class Person {
 
         return sb.toString();
     }
+
+    public static String toString(List<Person> people) {
+        StringBuffer writer = new StringBuffer();
+        writer.append("[");
+        for (Person person2 : people) {
+            writer.append(person2.toJsonString());
+            if (people.indexOf(person2) < people.size() - 1) {
+                writer.append(",");
+            }
+        }
+        writer.append("]");
+        return writer.toString();
+    }
 }

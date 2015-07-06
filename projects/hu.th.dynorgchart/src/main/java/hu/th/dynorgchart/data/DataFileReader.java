@@ -84,36 +84,78 @@ public class DataFileReader {
         for (int i = 0; i < data.length(); i++) {
             JSONObject object = data.getJSONObject(i);
             Person person = new Person((String) object.get("first name"), (String) object.get("last name"));
-            person.setDepartment(object.getString("department"));
-            person.setFunction(object.getString("function"));
-            person.setManager(object.getString("manager"));
-            person.setOffice(object.getString("office"));
-            person.setTeam(object.getString("team"));
-            person.setTitle(object.getString("title"));
-            String managerString = person.getManager();
-            if (managerString != null && managerString.isEmpty() == false) {
-                StringTokenizer st = new StringTokenizer(managerString, " ");
-                String firstName = st.nextToken();
-                String lastName = st.nextToken();
-                Person manager = new Person(firstName, lastName);
-                Person managerInList = findInList(roots, manager);
-                if (managerInList == null) {
-                    manager.getPeople().add(person);
-                    roots.add(manager);
-                } else {
-                    managerInList.getPeople().add(person);
+            Person personInDb = findInList(roots, person);
+            if (personInDb == null) {
+                person.setDepartment(object.getString("department"));
+                person.setFunction(object.getString("function"));
+                person.setManager(object.getString("manager"));
+                person.setOffice(object.getString("office"));
+                person.setTeam(object.getString("team"));
+                person.setTitle(object.getString("title"));
+                String managerString = person.getManager();
+                if (managerString.equals("Jutta Butcher")) {
+                    System.out.println();
                 }
+                if (managerString != null && managerString.isEmpty() == false) {
+                    StringTokenizer st = new StringTokenizer(managerString, " ");
+                    String firstName = st.nextToken();
+                    String lastName = st.nextToken();
+                    Person manager = new Person(firstName, lastName);
+                    Person managerInList = findInList(roots, manager);
+                    if (managerInList == null) {
+                        // do not add as person to himself manager
+                        if (person.equals(manager) == false) {
+                            manager.getPeople().add(person);
+                        } else {
+                            manager.setDepartment(object.getString("department"));
+                            manager.setFunction(object.getString("function"));
+                            manager.setManager(object.getString("manager"));
+                            manager.setOffice(object.getString("office"));
+                            manager.setTeam(object.getString("team"));
+                            manager.setTitle(object.getString("title"));
+                        }
+                        roots.add(manager);
+                    } else if (managerInList.equals(person) == false) {
+                        managerInList.getPeople().add(person);
+                    } else if (managerInList.equals(person) == true) {
+                        managerInList.setDepartment(object.getString("department"));
+                        managerInList.setFunction(object.getString("function"));
+                        managerInList.setManager(object.getString("manager"));
+                        managerInList.setOffice(object.getString("office"));
+                        managerInList.setTeam(object.getString("team"));
+                        managerInList.setTitle(object.getString("title"));
+                    }
+                }
+            } else {
+                personInDb.setDepartment(object.getString("department"));
+                personInDb.setFunction(object.getString("function"));
+                personInDb.setManager(object.getString("manager"));
+                personInDb.setOffice(object.getString("office"));
+                personInDb.setTeam(object.getString("team"));
+                personInDb.setTitle(object.getString("title"));
             }
         }
     }
 
+    /**
+     * Search for the person in the given tree roots
+     * 
+     * @param list
+     * @param person
+     * @return
+     */
     public Person findInList(List<Person> list, Person person) {
         if (list.contains(person)) {
-            return list.get(list.indexOf(person));
+            int indexOf = list.indexOf(person);
+            Person person2 = list.get(indexOf);
+            return person2;
         }
         for (Person manager : list) {
             List<Person> people = manager.getPeople();
-            return findInList(people, person);
+            Person foundInList = findInList(people, person);
+            if (foundInList != null) {
+                return foundInList;
+            }
         }
         return null;
     }
