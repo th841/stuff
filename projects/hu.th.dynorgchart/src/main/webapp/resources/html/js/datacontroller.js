@@ -23,7 +23,7 @@ function renderPerson(person){
 		plus.html("+");
 		plus.prop("open", false);
 		plus.click(function(e){
-			console.log("clicked", this);
+			// console.log("clicked", this);
 			var personDiv = $(this).parent();
 			var firstName = personDiv.attr("firstName");
 			var lastName = personDiv.attr("lastName");
