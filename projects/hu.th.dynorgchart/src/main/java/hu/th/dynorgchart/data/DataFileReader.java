@@ -117,4 +117,8 @@ public class DataFileReader {
         }
         return null;
     }
+
+    public List<Person> getRoots() {
+        return this.roots;
+    }
 }

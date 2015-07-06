@@ -4,22 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="th.server" version="2.5">
 
-	<filter>
-		<filter-name>GzipFilter</filter-name>
-		<filter-class>hu.th.filter.GZipServletFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>GzipFilter</filter-name>
-		<url-pattern>/data/*</url-pattern>
-	</filter-mapping>
-
 	<display-name>files</display-name>
 	<servlet>
 		<description></description>
 		<display-name>FileServlet</display-name>
 		<servlet-name>FileServlet</servlet-name>
-		<servlet-class>de.brueckner.bpv.FileServlet</servlet-class>
+		<servlet-class>hu.th.dynorgchart.servlet.FileServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>FileServlet</servlet-name>
@@ -30,7 +20,7 @@
 		<description></description>
 		<display-name>AllDataServlet</display-name>
 		<servlet-name>AllDataServlet</servlet-name>
-		<servlet-class>hu.th.servlet.AllDataServlet</servlet-class>
+		<servlet-class>hu.th.dynorgchart.servlet.DataServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AllDataServlet</servlet-name>
@@ -38,7 +28,7 @@
 	</servlet-mapping>
 
 	<listener>
-		<listener-class>hu.th.dynorgchart.DataInitializer</listener-class>
+		<listener-class>hu.th.dynorgchart.data.DataInitializer</listener-class>
 	</listener>
 
 	<session-config>

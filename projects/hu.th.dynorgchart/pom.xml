@@ -67,7 +67,7 @@
 					<encoding>UTF-8</encoding>
 					<webResources>
 						<resource>
-							<directory>src/main/webapp</directory>
+							<directory>data</directory>
 							<targetPath>/</targetPath>
 						</resource>
 					</webResources>

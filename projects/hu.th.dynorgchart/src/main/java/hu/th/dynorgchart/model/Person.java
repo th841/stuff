@@ -107,4 +107,11 @@ public class Person {
     public void setPeople(List<Person> people) {
         this.people = people;
     }
+
+    @Override
+    public String toString() {
+        return "Person [title=" + title + ", firstName=" + firstName + ", lastName=" + lastName + ", department="
+                + department + ", manager=" + manager + ", team=" + team + ", function=" + function + ", office="
+                + office + ", people=" + people + "]";
+    }
 }
